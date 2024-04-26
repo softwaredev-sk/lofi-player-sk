@@ -1,4 +1,4 @@
-import { forwardRef } from 'react';
+import { forwardRef, useEffect } from 'react';
 
 const AudioComponent = forwardRef(function AudioComponent(
   { src, onSelect },
@@ -6,7 +6,7 @@ const AudioComponent = forwardRef(function AudioComponent(
 ) {
   return (
     <div className="">
-      <audio autoplay id="audio" onEnded={onSelect} src={src} ref={ref}></audio>
+      <audio autoPlay id="audio" onEnded={onSelect} src={src} ref={ref}></audio>
     </div>
   );
 });

@@ -20,22 +20,20 @@ export default function Header() {
       onDoubleClick={handleFullscreen}
     >
       <nav>
-        <ul className="flex gap-6 justify-end mx-4">
-          <li className="hover:text-blue-lofi">
-            <Link
-              href="/"
-              className={path === '/' ? 'text-red-900 text-bold' : ''}
-            >
-              Home
-            </Link>
+        <ul className="flex gap-6 justify-end mx-4 text-red-900">
+          <li
+            className={`hover:text-blue-lofi ${
+              path === '/' ? 'text-white  text-bold' : ''
+            }`}
+          >
+            <Link href="/">Home</Link>
           </li>
-          <li className="hover:text-blue-lofi">
-            <Link
-              href="/credits"
-              className={path === '/credits' ? 'text-red-900  text-bold' : ''}
-            >
-              Credits
-            </Link>
+          <li
+            className={`hover:text-blue-lofi ${
+              path === '/credits' ? 'text-white  text-bold' : ''
+            }`}
+          >
+            <Link href="/credits">Credits</Link>
           </li>
         </ul>
       </nav>

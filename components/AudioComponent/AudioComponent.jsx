@@ -1,6 +1,6 @@
 import { forwardRef } from 'react';
 
-export default AudioComponent = forwardRef(function Audio(
+const AudioComponent = forwardRef(function AudioComponent(
   { src, onSelect },
   ref
 ) {
@@ -10,3 +10,5 @@ export default AudioComponent = forwardRef(function Audio(
     </div>
   );
 });
+
+export default AudioComponent;

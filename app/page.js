@@ -1,5 +1,5 @@
 'use client';
-import Audio from '@/components/Audio/Audio';
+import AudioComponent from '@/components/Audio/Audio';
 import { useEffect, useRef, useState } from 'react';
 import ParticlesContainer from '@/components/Particles/Particles';
 
@@ -101,7 +101,11 @@ export default function Home() {
           )}
           {!playStatus && srcUrl[index].name}
         </div>
-        <Audio src={srcUrl[index].url} ref={ref} onSelect={handleDoubleClick} />
+        <AudioComponent
+          src={srcUrl[index].url}
+          ref={ref}
+          onSelect={handleDoubleClick}
+        />
       </main>
       <ParticlesContainer className="absolute top-0 right-0 bottom-0 left-0 -z-10" />
     </>

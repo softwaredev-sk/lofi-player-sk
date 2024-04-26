@@ -1,5 +1,5 @@
 'use client';
-import AudioComponent from '@/components/Audio/Audio';
+import AudioComponent from '@/components/AudioComponent/AudioComponent';
 import { useEffect, useRef, useState } from 'react';
 import ParticlesContainer from '@/components/Particles/Particles';
 

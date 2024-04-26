@@ -63,13 +63,13 @@ export default function Credits() {
         <li>
           <div>
             <Link
-              href="https://www.jiosaavn.com/featured/hindi-hit-songs/ZodsPn39CSjwxP8tCU-flw__"
+              href="https://www.jiosaavn.com/featured/chill-maaro-lo-fi-mix/mAA3xzx2Asqm0KYf4sgO,Q__"
               className="text-bold"
             >
-              Hindi Hit Songs
+              Chill Maaro: Lo-Fi Mix
             </Link>
             {playlist.includes(
-              'https://www.jiosaavn.com/featured/hindi-hit-songs/ZodsPn39CSjwxP8tCU-flw__'
+              'https://www.jiosaavn.com/featured/chill-maaro-lo-fi-mix/mAA3xzx2Asqm0KYf4sgO,Q__'
             ) ? (
               <>
                 {' '}
@@ -82,7 +82,7 @@ export default function Credits() {
                   className="inline-block cursor-pointer"
                   onClick={() =>
                     handleSelect(
-                      'https://www.jiosaavn.com/featured/hindi-hit-songs/ZodsPn39CSjwxP8tCU-flw__'
+                      'https://www.jiosaavn.com/featured/chill-maaro-lo-fi-mix/mAA3xzx2Asqm0KYf4sgO,Q__'
                     )
                   }
                 >
@@ -95,13 +95,13 @@ export default function Credits() {
         <li>
           <div>
             <Link
-              href="https://www.jiosaavn.com/featured/lets-play-arijit-singh-hindi/Iz0pi7nkjUE_"
+              href="https://www.jiosaavn.com/featured/monsoon-lofi-beats/68cGlQtgV9-b5bdQKACHDA__"
               className="text-bold"
             >
-              Let's Play - Arijit Singh - Hindi
+              Monsoon Lofi Beats
             </Link>
             {playlist.includes(
-              'https://www.jiosaavn.com/featured/lets-play-arijit-singh-hindi/Iz0pi7nkjUE_'
+              'https://www.jiosaavn.com/featured/monsoon-lofi-beats/68cGlQtgV9-b5bdQKACHDA__'
             ) ? (
               <>
                 {' '}
@@ -114,7 +114,7 @@ export default function Credits() {
                   className="inline-block cursor-pointer"
                   onClick={() =>
                     handleSelect(
-                      'https://www.jiosaavn.com/featured/lets-play-arijit-singh-hindi/Iz0pi7nkjUE_'
+                      'https://www.jiosaavn.com/featured/monsoon-lofi-beats/68cGlQtgV9-b5bdQKACHDA__'
                     )
                   }
                 >

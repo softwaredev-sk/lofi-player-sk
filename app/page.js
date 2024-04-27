@@ -10,12 +10,32 @@ export default function Home() {
   const [index, setIndex] = useState(0);
   const [playStatus, setPlayStatus] = useState(undefined);
   const [currentDuration, setCurrentDuration] = useState(0);
-  const [songCount, setSongCount] = useState(0);
+  const [songCount, setSongCount] = useState(5);
   const [srcUrl, setSrcUrl] = useState([
     {
       name: 'Tum Mile (Lofi Flip)',
       url: 'https://aac.saavncdn.com/259/1ee450f9addeccd7bb00e8ab19d9d3f4_320.mp4',
-      duration: '242',
+      duration: 242,
+    },
+    {
+      name: 'Muskurane (Lofi Flip)',
+      url: 'https://aac.saavncdn.com/886/11bf4b9deef49676028fba018bd6cecf_320.mp4',
+      duration: 210,
+    },
+    {
+      name: 'Zara Sa (Lofi Flip)',
+      url: 'https://aac.saavncdn.com/990/7a5f1855b914096fb5e72ec432b162a1_320.mp4',
+      duration: 212,
+    },
+    {
+      name: 'Saibo (Lofi Flip)',
+      url: 'https://aac.saavncdn.com/366/155d187a9b9322a51c4ef38f01dfbf51_320.mp4',
+      duration: 145,
+    },
+    {
+      name: 'Saawariya (DJ Akhil Talreja Lofi Edit)',
+      url: 'https://aac.saavncdn.com/758/1ae11d9fe2a57ac05d8bf4288331e39c_320.mp4',
+      duration: 283,
     },
   ]);
   const { playlist } = useAppContext();

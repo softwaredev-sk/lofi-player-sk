@@ -1,4 +1,5 @@
 'use client';
+import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
@@ -34,6 +35,18 @@ export default function Header() {
             }`}
           >
             <Link href="/credits">Credits</Link>
+          </li>
+          <li
+            className={`hover:text-blue-lofi cursor-pointer flex justify-center align-middle`}
+            onClick={handleFullscreen}
+          >
+            <span className="flex justify-center align-middle m-auto p-auto">
+              {fullscreen ? (
+                <Image src="/exit-fs.png" width={18} height={18} />
+              ) : (
+                <Image src="/fs.png" width={18} height={18} />
+              )}
+            </span>
           </li>
         </ul>
       </nav>

@@ -15,6 +15,22 @@ module.exports = {
       colors: {
         'blue-lofi': '#a34e9f',
       },
+      // that is animation class
+      animation: {
+        fadeout: 'fadeOut 1s ease-in-out forwards',
+        fadein: 'fadeIn 150ms ease-in-out forwards',
+      },
+      // that is actual animation
+      keyframes: () => ({
+        fadeOut: {
+          '0%': { opacity: 1 },
+          '100%': { opacity: 0 },
+        },
+        fadeIn: {
+          '0%': { opacity: 0 },
+          '100%': { opacity: 1 },
+        },
+      }),
     },
   },
   plugins: [],

@@ -6,6 +6,8 @@ import { useAppContext } from '@/store/UrlContext';
 export default function Main() {
   const ref = useRef();
   let interval = useRef();
+  let idleTimer = useRef();
+  const [hideLayer, setHideLayer] = useState(false);
   const [index, setIndex] = useState(0);
   const [playStatus, setPlayStatus] = useState(undefined);
   const [currentDuration, setCurrentDuration] = useState(0);
@@ -84,6 +86,27 @@ export default function Main() {
     };
   }, [playStatus, index]);
 
+  useEffect(() => {
+    function handleMouseMove() {
+      setHideLayer(false);
+      clearTimeout(idleTimer);
+      idleTimer = setTimeout(() => {
+        setHideLayer(true);
+      }, 2000);
+    }
+    document.addEventListener('mousemove', handleMouseMove);
+
+    idleTimer = setTimeout(() => {
+      setHideLayer(true);
+    }, 2000);
+
+    return () => {
+      setHideLayer(false);
+      document.removeEventListener('mousemove', handleMouseMove);
+      clearTimeout(idleTimer);
+    };
+  }, []);
+
   function handleDoubleClick() {
     let ind = Math.floor(Math.random() * songCount);
     setIndex(ind);
@@ -94,7 +117,9 @@ export default function Main() {
   }
   return (
     <main
-      className="fixed top-0 right-0 bottom-0 left-0 z-10 bg-transparent"
+      className={`fixed top-0 right-0 bottom-0 left-0 z-10 bg-transparent ${
+        hideLayer ? 'animate-fadeout' : 'animate-fadein'
+      }`}
       onClick={handleClick}
       onDoubleClick={handleDoubleClick}
     >
@@ -123,7 +148,7 @@ export default function Main() {
           <>
             <p className="">Click Once to Play/Pause.</p>
             <p>Double Click to Change Track.</p>
-            <p>Double Click 'Home' to go Fullscreen.</p>
+            <p>Double Click 'Home' to toggle Fullscreen.</p>
           </>
         )}
         {playStatus && (

@@ -7,6 +7,8 @@ export default function Main() {
   const ref = useRef();
   let interval = useRef();
   let idleTimer = useRef();
+  let clickTimeout = useRef();
+  const [clickCount, setClickCount] = useState(0);
   const [hideLayer, setHideLayer] = useState(false);
   const [index, setIndex] = useState(0);
   const [playStatus, setPlayStatus] = useState(undefined);
@@ -77,44 +79,60 @@ export default function Main() {
       if (!ref.current.currentTime) {
         ref.current.currentTime = 0;
       }
-      interval = setInterval(() => {
+      interval.current = setInterval(() => {
+        interval.current = null;
         setCurrentDuration(Math.floor(ref.current.currentTime));
       }, 200);
     }
     return () => {
-      clearInterval(interval);
+      clearInterval(interval.current);
     };
   }, [playStatus, index]);
 
   useEffect(() => {
-    function handleMouseMove() {
-      setHideLayer(false);
-      clearTimeout(idleTimer);
-      idleTimer = setTimeout(() => {
-        setHideLayer(true);
-      }, 2000);
-    }
     document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('touchmove', handleMouseMove);
 
-    idleTimer = setTimeout(() => {
+    idleTimer.current = setTimeout(() => {
+      idleTimer.current = null;
       setHideLayer(true);
     }, 2000);
 
     return () => {
       setHideLayer(false);
       document.removeEventListener('mousemove', handleMouseMove);
-      clearTimeout(idleTimer);
+      document.removeEventListener('touchmove', handleMouseMove);
+      clearTimeout(idleTimer.current);
     };
   }, []);
 
   function handleDoubleClick() {
     let ind = Math.floor(Math.random() * songCount);
     setIndex(ind);
+    clearTimeout(clickTimeout.current);
+    setPlayStatus(true);
   }
 
   function handleClick() {
-    setPlayStatus((prevState) => !prevState);
+    if (clickTimeout.current) {
+      clearTimeout(clickTimeout.current);
+    }
+    clickTimeout.current = setTimeout(() => {
+      clickTimeout.current = null;
+      setPlayStatus((prevState) => !prevState);
+    }, 200);
+    handleMouseMove();
   }
+
+  function handleMouseMove() {
+    setHideLayer(false);
+    clearTimeout(idleTimer.current);
+    idleTimer.current = setTimeout(() => {
+      idleTimer.current = null;
+      setHideLayer(true);
+    }, 2000);
+  }
+
   return (
     <main
       className={`fixed top-0 right-0 bottom-0 left-0 z-10 bg-transparent ${

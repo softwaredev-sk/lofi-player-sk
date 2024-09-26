@@ -17,22 +17,10 @@ export function useAppContext() {
 }
 
 export default function ContextComponent({ children }) {
-  // const [playList, setPlayList] = useState(
-  //   'https://saavn.dev/api/playlists?link=https://www.jiosaavn.com/featured/best-indian-lo-fi-hits/yh7x7lXtCVkGSw2I1RxdhQ__&limit=40'
-  // );
-  const [playList, setPlayList] = useState(
-    'https://www.jiosaavn.com/featured/best-indian-lo-fi-hits/yh7x7lXtCVkGSw2I1RxdhQ__'
-  );
   const [playStatus, setPlayStatus] = useState(false);
 
-  function setPlaylistContext(input) {
-    setPlayList(`https://saavn.dev/api/playlists?link=${input}&limit=40`);
-  }
-
   const contextValue = {
-    playlist: playList,
     playStatus,
-    setPlaylistContext,
     setPlayStatus,
   };
 

@@ -3,6 +3,7 @@ import AudioComponent from '@/components/AudioComponent/AudioComponent';
 import { useEffect, useRef, useState } from 'react';
 import { useAppContext } from '@/store/UrlContext';
 import PlayProgress from '../PlayProgress/PlayProgress';
+import Attribution from '../Attribution/Attribution';
 
 export default function Main() {
   const ref = useRef();
@@ -141,6 +142,8 @@ export default function Main() {
     }, 2000);
   }
 
+  function handleThemeChange() {}
+
   return (
     <main
       className={`fixed top-0 right-0 bottom-0 left-0 z-10 bg-transparent ${
@@ -149,10 +152,6 @@ export default function Main() {
       onClick={handleClick}
       onDoubleClick={handleDoubleClick}
     >
-      <p className="fixed bottom-2 left-4 py-1 px-2 border-2 border-red-100 rounded-full select-none">
-        with 💖 by SK
-      </p>
-
       <PlayProgress
         currentDuration={currentDuration}
         srcUrl={srcUrl}
@@ -177,6 +176,8 @@ export default function Main() {
         ref={ref}
         onSelect={handleDoubleClick}
       />
+
+      <Attribution />
     </main>
   );
 }

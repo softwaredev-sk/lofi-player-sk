@@ -19,6 +19,8 @@ module.exports = {
       animation: {
         fadeout: 'fadeOut 1s ease-in-out forwards',
         fadein: 'fadeIn 150ms ease-in-out forwards',
+        fade: 'fade 1s linear forwards',
+        unfade: 'unfade 1s linear forwards',
       },
       // that is actual animation
       keyframes: () => ({
@@ -28,6 +30,12 @@ module.exports = {
         },
         fadeIn: {
           '0%': { opacity: 0 },
+          '100%': { opacity: 1 },
+        },
+        fade: {
+          '100%': { opacity: 0.25 },
+        },
+        unfade: {
           '100%': { opacity: 1 },
         },
       }),

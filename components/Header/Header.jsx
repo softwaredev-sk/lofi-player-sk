@@ -42,9 +42,19 @@ export default function Header() {
           >
             <span className="flex justify-center align-middle m-auto p-auto">
               {fullscreen ? (
-                <Image src="/exit-fs.png" width={18} height={18} />
+                <Image
+                  src="/exit-fs.png"
+                  width={18}
+                  height={18}
+                  alt="exit fullscreen"
+                />
               ) : (
-                <Image src="/fs.png" width={18} height={18} />
+                <Image
+                  src="/fs.png"
+                  width={18}
+                  height={18}
+                  alt="enter fullscreen"
+                />
               )}
             </span>
           </li>

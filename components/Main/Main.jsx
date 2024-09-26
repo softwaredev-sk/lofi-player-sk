@@ -2,16 +2,18 @@
 import AudioComponent from '@/components/AudioComponent/AudioComponent';
 import { useEffect, useRef, useState } from 'react';
 import { useAppContext } from '@/store/UrlContext';
+import PlayProgress from '../PlayProgress/PlayProgress';
 
 export default function Main() {
   const ref = useRef();
   let interval = useRef();
   let idleTimer = useRef();
   let clickTimeout = useRef();
-  const [clickCount, setClickCount] = useState(0);
+
   const [hideLayer, setHideLayer] = useState(false);
+  const [error, setError] = useState(false);
   const [index, setIndex] = useState(0);
-  const [playStatus, setPlayStatus] = useState(undefined);
+  const { playStatus, setPlayStatus } = useAppContext(undefined);
   const [currentDuration, setCurrentDuration] = useState(0);
   const [songCount, setSongCount] = useState(5);
   const [srcUrl, setSrcUrl] = useState([
@@ -41,47 +43,53 @@ export default function Main() {
       duration: 283,
     },
   ]);
-  const { playlist } = useAppContext();
 
   useEffect(() => {
     (async () => {
-      let srcUrlData = [];
-      const songData = await fetch(playlist);
-      const songsResponseData = await songData.json();
-      if (!songsResponseData.data) {
-        return window.alert('Invalid Playlist');
-      }
-      songsResponseData.data.songs.forEach((song) => {
-        srcUrlData.push({
-          name: song.name,
-          url: song.downloadUrl.at(-1).url,
-          duration: song.duration,
-        });
-      });
-      setSrcUrl(srcUrlData);
-      setSongCount(songsResponseData.data.songCount);
-      setIndex(Math.floor(Math.random() * songCount));
-      if (ref.current.paused) {
-        if (playStatus === undefined) {
-          setPlayStatus(false);
-        } else {
-          setPlayStatus(true);
+      try {
+        const songData = await fetch('/api/playlist');
+        const songsResponseData = await songData.json();
+        if (!songsResponseData.success) {
+          throw new Error('Something went wrong!');
         }
+        if (!songsResponseData.data) {
+          return window.alert('Invalid Playlist');
+        }
+
+        const srcUrlData = songsResponseData.data.songs;
+        setSrcUrl(srcUrlData);
+        const songCount = songsResponseData.data.songs.length;
+
+        setSongCount(songCount);
+        setIndex(Math.floor(Math.random() * songCount));
+        if (ref.current.paused) {
+          if (playStatus === undefined) {
+            setPlayStatus(false);
+          } else {
+            setPlayStatus(true);
+          }
+        }
+      } catch (err) {
+        setError(err);
       }
     })();
-  }, [playlist]);
+  }, []);
 
   useEffect(() => {
     if (!playStatus) {
       ref.current.pause();
+      document.title = 'LoFi Playlist';
     } else {
       ref.current.play();
+      document.title = srcUrl[index].name;
       if (!ref.current.currentTime) {
         ref.current.currentTime = 0;
       }
       interval.current = setInterval(() => {
         interval.current = null;
-        setCurrentDuration(Math.floor(ref.current.currentTime));
+        if (ref.current) {
+          setCurrentDuration(Math.floor(ref.current.currentTime));
+        }
       }, 200);
     }
     return () => {
@@ -107,7 +115,7 @@ export default function Main() {
   }, []);
 
   function handleDoubleClick() {
-    let ind = Math.floor(Math.random() * songCount);
+    let ind = Math.floor(Math.random() * songCount) % songCount;
     setIndex(ind);
     clearTimeout(clickTimeout.current);
     setPlayStatus(true);
@@ -144,23 +152,13 @@ export default function Main() {
       <p className="fixed bottom-2 left-4 py-1 px-2 border-2 border-red-100 rounded-full select-none">
         with 💖 by SK
       </p>
-      <progress
-        id="progress"
-        value={currentDuration}
-        max={srcUrl[index].duration}
-        className="bg-white text-black w-full"
-      ></progress>
 
-      <label
-        htmlFor="progress"
-        className="text-red-100 [text-shadow:_1px_1px_1px_rgb(255_0_0_/_100%)] bg-slate-700 py-1 px-2 rounded-full mx-2 "
-      >
-        {`00${Math.floor(
-          (srcUrl[index].duration - currentDuration) / 60
-        )}`.slice(-2) +
-          ' : ' +
-          `00${(srcUrl[index].duration - currentDuration) % 60}`.slice(-2)}
-      </label>
+      <PlayProgress
+        currentDuration={currentDuration}
+        srcUrl={srcUrl}
+        index={index}
+      />
+
       <div className="[text-shadow:_1px_1px_1px_rgb(255_0_0_/_100%)] text-white px-2 select-none">
         {!playStatus && (
           <>
@@ -173,6 +171,7 @@ export default function Main() {
           <p dangerouslySetInnerHTML={{ __html: srcUrl[index].name }}></p>
         )}
       </div>
+
       <AudioComponent
         src={srcUrl[index].url}
         ref={ref}

@@ -14,8 +14,9 @@ export default function ParticlesContainer() {
   }, []);
 
   const particlesLoaded = (container) => {
-    //   console.log(container);
+    // console.log(container);
   };
+
   const options = useMemo(
     () => ({
       fpsLimit: 120,

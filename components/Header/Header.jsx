@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 
-export default function Header() {
+export default function Header({ style }) {
   const [fullscreen, setFullscreen] = useState(false);
   function handleFullscreen() {
     if (!fullscreen) {
@@ -16,16 +16,14 @@ export default function Header() {
   }
   const path = usePathname();
   return (
-    <header
-      className="fixed top-2 right-0 w-full p-2 mt-1 z-40"
-      onDoubleClick={handleFullscreen}
-    >
+    <header className="w-full p-2 mt-1 z-40" style={style}>
       <nav>
-        <ul className="flex gap-6 justify-end mx-4 text-red-900">
+        <ul className="flex gap-6 justify-end mx-4 text-red-900 text-sm">
           <li
             className={`hover:text-blue-lofi ${
               path === '/' ? 'text-white  text-bold' : ''
             }`}
+            onDoubleClick={handleFullscreen}
           >
             <Link href="/">Home</Link>
           </li>

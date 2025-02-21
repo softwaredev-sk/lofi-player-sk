@@ -17,7 +17,7 @@ export function useAppContext() {
 }
 
 export default function ContextComponent({ children }) {
-  const [playStatus, setPlayStatus] = useState(false);
+  const [playStatus, setPlayStatus] = useState(undefined);
 
   const contextValue = {
     playStatus,

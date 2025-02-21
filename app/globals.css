@@ -37,3 +37,21 @@ body {
     text-wrap: balance;
   }
 }
+
+@media (pointer: fine) {
+  .mobile-only {
+    display: none;
+  }
+  .desktop-only {
+    display: block;
+  }
+}
+
+@media (pointer: coarse) {
+  .mobile-only {
+    display: block;
+  }
+  .desktop-only {
+    display: none;
+  }
+}
